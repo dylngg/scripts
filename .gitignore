@@ -1,0 +1,6 @@
+# ignore symbolic links (without extensions)
+*
+!/**/
+!*.*
+# ignore personal scripts (sensitive data in them)
+*.personal
