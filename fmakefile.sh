@@ -1,6 +1,7 @@
 #!/bin/bash
 # Formats a space formatted makefile into a tab seperated makefile. Requires
-# unexpand.
+# unexpand and sponge (usually installed by default on unix, latter has to be
+# installed on Macs).
 #
 # Note: When angry, you can let the "f" in fmakefile stand for something else,
 # if you catch my drift...
