@@ -14,7 +14,7 @@
 # Usage: ./gobuild.sh [go-build-args ...]
 use_parent=false
 args="$@"
-if test -n "$args"; then
+if ! test -n "$args"; then
   use_parent=true
 fi
 
