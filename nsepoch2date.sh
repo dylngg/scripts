@@ -1,7 +1,7 @@
 #!/bin/sh
 # Given nanoseconds in epoch as the first argument, prints out a nicely
 # formatted date for the given epoch.
-if [ -z "$1" ]; then
+if [ "$1" != "" ]; then
     echo "No ns timestamp given." > /dev/stderr
     exit 1
 fi
