@@ -7,5 +7,5 @@
 # if you catch my drift...
 EXPAND=unexpand
 TAB_SPACE=4
-cp $1 $1.spaces
-$EXPAND -t $TAB_SPACE $1 | sponge $1
+cp "$1" "$1.spaces"
+"$EXPAND" -t $TAB_SPACE "$1" | sponge "$1"
