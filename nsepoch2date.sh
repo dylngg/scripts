@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Given nanoseconds in epoch as the first argument, prints out a nicely
 # formatted date for the given epoch.
 if [ -z "$1" ]; then
