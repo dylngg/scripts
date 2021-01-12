@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # A wrapper around pandoc for sane markdown to pdf conversion
 original="$1"
 if [ "$(basename $original .md)" != "$original" ]; then

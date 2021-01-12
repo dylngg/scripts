@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Formats a space formatted makefile into a tab seperated makefile. Requires
 # unexpand and sponge (usually installed by default on unix, latter has to be
 # installed on Macs).
