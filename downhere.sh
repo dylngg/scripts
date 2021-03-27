@@ -16,5 +16,5 @@ last="$(ls -t1 "$there" | head -1)"
 if [ -f "$here" ]; then
     echo "$here"  # renamed
 else
-    echo "$last"
+    echo "$here/$last"
 fi
