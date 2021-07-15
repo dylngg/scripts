@@ -11,7 +11,7 @@ towatch="$1"
 if [ "$towatch" = "" ] || [ "$towatch" = "-" ]; then
     towatch="/dev/stdin"
 fi
-lines="$(tput lines)"
-tty_height="$(( $lines - 3 ))"
+lines=$(tput lines)
+tty_height=$(( $lines - 3))
 
 watch -n 1 -c tail -n $tty_height "$towatch"
