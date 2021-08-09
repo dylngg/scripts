@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # A dirty script to find circular imports in the given C/C++ files. Ignores
-# ifdefs and blindly strips directories when looking for imports.
+# ifdefs.
 #
 # Usage: findcirimport files [files ...]
 
@@ -25,13 +25,23 @@ def parse_include_line(line):
     return match_or_none.group(5)
 
 
+def unrelative_path(relative_to_dir, path):
+    # unrelative_path("foo/", "../bar") -> "bar/"
+    # unrelative_path("foo/", "/bar") -> "/bar"
+    return os.path.normpath(os.path.join(relative_to_dir, path))
+
+
 def imports_from_file(filepath):
+    import_dir = os.path.dirname(filepath)
+
     imports = []
     with open(filepath) as f:
         for line in f.readlines():
             lstripped = line.strip()
             if lstripped.startswith("#include"):
-                imports.append(parse_include_line(lstripped))
+                import_path = parse_include_line(lstripped)
+                unrel_import_path = unrelative_path(import_dir, import_path)
+                imports.append(unrel_import_path)
 
     return imports
 
@@ -52,14 +62,15 @@ def main():
     args = parse_args()
 
     source_imports_map = {}
-    for filename in args.files:
-        real_filepath = os.path.realpath(filename)
-        if real_filepath in source_imports_map:
-            print("Ignoring duplicate file: {} (given {})", real_filepath, filename, file=sys.stderr)
+    seen_real_filepaths = set()
+    for filepath in args.files:
+        real_filepath = os.path.realpath(filepath)
+        if real_filepath in seen_real_filepaths:
+            print("Ignoring duplicate file: {} (given {})", real_filepath, filepath, file=sys.stderr)
             continue
 
-        source = os.path.basename(real_filepath)
-        source_imports_map[source] = set(imports_from_file(real_filepath))
+        seen_real_filepaths.add(real_filepath)
+        source_imports_map[filepath] = set(imports_from_file(filepath))
 
     for source, import_set in source_imports_map.items():
         import_chain_list = recursive_import_chain(source, import_set, source_imports_map)
