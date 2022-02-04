@@ -6,6 +6,7 @@
 #       operations happening in the current working directory, rather than the
 #       specified directory. e.g. "@ ~/ echo 'foo' > foo.txt" results in
 #       foo.txt being written in the current working directory.
+set -e
 if [ "$1" = "" ]; then
     echo "No directory given" > /dev/stderr
     exit 1
